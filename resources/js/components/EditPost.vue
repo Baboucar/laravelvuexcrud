@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <router-link to="/">Back</router-link>
+        <router-link to="/" class="btn edit back">Back</router-link>
   <h1>Edit</h1>
   <div class="form__container">
   <form  @submit.prevent ="updatePost(post)" >
@@ -35,9 +35,9 @@
         }
        },
        computed:{
-     ...mapGetters([
-         'getposts'
-     ])
+    //  ...mapGetters([
+    //      'getposts'
+    //  ])
        },
        mounted(){
            let id =this.$route.params.id;
@@ -76,4 +76,7 @@
 </script>
 
 <style lang="scss" scoped>
+ .back{
+     width: 50%;
+ }
 </style>

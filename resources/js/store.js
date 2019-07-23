@@ -6,7 +6,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
      state: {
-         posts: []
+         posts: [],
+         isLoggedIn: !!localStorage.getItem('token')
     },
     getters:{
         getposts:state=>{
@@ -31,6 +32,12 @@ export default new Vuex.Store({
        DELETE_POST(state,post){
            let index = state.posts.findIndex(item=>item.id ==post.id);
            state.posts.splice(index,1);
+       },
+       LOGIN_USER(state){
+           state.isLoggedIn = true
+       },
+       LOGOUTUSER(state){
+           state.isLoggedIn = false
        }
    },
     actions:{
@@ -70,6 +77,23 @@ export default new Vuex.Store({
             }).catch(error=>{
                 console.log(err)
             })
+        },
+        submitLogin({commit},payload){
+            axios.post('/api/auth/login',{
+                email:payload.email,
+                password:payload.password
+            }).then(response=>{
+                commit('LOGIN_USER',payload)
+                localStorage.setItem('token',response.data.token);
+                   routes.push({name:'home'})
+            }).catch(error=>{
+                console.log(error)
+            })
+        },
+        logout({commit}){
+            localStorage.removeItem('token')
+             commit('LOGOUTUSER')
+             routes.push({name:'login'})
         }
 
     }

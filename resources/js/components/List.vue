@@ -1,5 +1,7 @@
 <template>
     <div class="container">
+
+<router-link to="/logout">Logout</router-link>
     <h1 class="title">List All Posts</h1>
     <router-view></router-view>
    <table class="table">
@@ -33,11 +35,11 @@
               <p class="error" v-if="errors.has('title')">
                            {{errors.first('title')}}
               </p>
-               <input placeholder="Enter Post Title" name="title" v-validate="'required'" type="text" v-model="post.title" id="">
+               <input placeholder="Enter Post Title" name="title" v-validate="'required'" type="text" v-model="post.title"  >
           </div>
 
           <div>
-             <textarea name="content" v-validate="'required'" placeholder="Enter Post Description"  v-model="post.content">
+             <textarea name="content" v-validate="'required'" placeholder="Enter Post Description"  v-model="post.content" >
 
              </textarea>
              <p class="error" v-if="errors.has('content')">
@@ -63,7 +65,8 @@
             post:{
                 title:'',
                 content: ''
-            }
+            },
+            data: ''
         }
         },
 
@@ -92,6 +95,7 @@
         },
         mounted(){
             this.$store.dispatch('fetchPosts')
+
 
         }
     }
@@ -140,11 +144,14 @@
         margin-top: 6rem;
     }
 
-   input[type="text"], textarea{
+   input[type="text"],input[type="email"], input[type="password"] , textarea{
         width: 100%;
          border: none;
     border: 2px sold #eee;
        background: #f2f2f2;
+       font-size: 1.2rem;
+       margin-top: .5rem;
+       height: 40px;
    }
 
 textarea{
@@ -152,6 +159,7 @@ textarea{
 }
    input[type="text"]{
        height: 40px;
+
 
 
    }

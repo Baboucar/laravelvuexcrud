@@ -19,3 +19,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('post','PostController');
 
+Route::prefix('auth')->group(function(){
+    Route::post('register','AuthController@register');
+       Route::post('login','AuthController@login');
+       Route::post('refresh','AuthController@refresh');
+
+
+       Route::group(['middleware'=>'auth:api'],function(){
+        Route::post('user','AuthController@getUser');
+        Route::post('logout','AuthController@logout');
+       });
+});
+

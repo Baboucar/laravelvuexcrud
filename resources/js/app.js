@@ -35,6 +35,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 import List from './components/List';
 import EditPost from './components/EditPost';
+import Login from './components/Login';
 import router from './routes.js';
 
 const app = new Vue({
@@ -43,6 +44,7 @@ const app = new Vue({
     router,
 
     components:{
-       List
+       List,
+       Login
     }
 });
