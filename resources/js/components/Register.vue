@@ -15,12 +15,13 @@
           <input  v-model="password" v-validate="'required'" type="password" placeholder="Password"  required>
         </div>
         <div>
-          <input v-model="confirm__password" v-validate="'required'" type="text" placeholder="Confirm Password" required>
+          <input v-model="password_confirmation" v-validate="'required'" type="password" placeholder="Confirm Password" required>
+             <span class="error">{{errorMessage}}</span>
         </div>
 
 
         <div>
-          <button class="btn edit" type="submit">Register</button>
+          <button class="btn edit" type="submit"  @click="handleSubmit">Register</button>
           <span><router-link to="/login">Login Here</router-link></span>
         </div>
       </form>
@@ -37,15 +38,33 @@
                 name:'',
                 email:'',
                 password: '',
-                confirmpassword:''
+                password_confirmation:'',
+                errorMessage: ""
                 }
 
         },
-        
+        methods:{
+            handleSubmit(e){
+                e.preventDefault();
+
+              if(this.password !== this .password_confirmation || this.password.length <= 0){
+                    this.password = "";
+                    this.password_confirmation= "";
+                  this.errorMessage = "sorry the passwords you enterd does not match";
+              }
+            }
+        }
+
 
     }
 </script>
 
 <style lang="scss" scoped>
+
+.error{
+    color:red;
+    display: block;
+    margin-top: .5rem;
+}
 
 </style>
