@@ -7,7 +7,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
      state: {
          posts: [],
-         isLoggedIn: !!localStorage.getItem('token')
+         isLoggedIn: !!localStorage.getItem('token'),
+         loginError: '',
     },
     getters:{
         getposts:state=>{
@@ -87,7 +88,7 @@ export default new Vuex.Store({
                 localStorage.setItem('token',response.data.token);
                    routes.push({name:'home'})
             }).catch(error=>{
-                console.log(error)
+                this.state.loginError = error;
             })
         },
         logout({commit}){

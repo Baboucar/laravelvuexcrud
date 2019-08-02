@@ -4,18 +4,19 @@ import List from './components/List';
 import Login from './components/Login';
 import EditPost from './components/EditPost';
 import Logout from './components/Logout';
+import Register from './components/Register';
 import store from './store';
 
 
 const routes = new Router({
-
+    mode:'history',
     routes: [
         {
-         path:'/',
+         path:'*',
          redirect:{name:'login'}
         },
         {
-        path:'/login',
+        path:'/',
         name:'login',
         component:Login
         },
@@ -34,10 +35,16 @@ const routes = new Router({
              }
         },
         {
+            path:'/register',
+            component:Register,
+            name:'register'
+        },
+        {
             path:'/edit/:id',
             component: EditPost,
             name:'editpost'
-        }
+        },
+
     ]
 
 
@@ -60,9 +67,16 @@ routes.beforeEach((to,from,next)=>{
         return;
     }
 
+    // if(to.path === '/register' ){
+    //     next({name:'register'})
+    //     return;
+    // }
     next()
 
-})
+});
+
+
+
 
 export default routes;
 
